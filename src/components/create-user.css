@@ -1,0 +1,9 @@
+.container{
+    width: 150px;
+    float: left;
+}
+
+.picture{
+    float: right;
+    margin: 30px;
+}
