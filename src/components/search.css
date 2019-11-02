@@ -1,0 +1,28 @@
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.search__bar {
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 1rem;
+}
+
+.search__add {
+    border: 1px solid DodgerBlue; /* Blue background */
+    border-radius: 50%; /* Remove borders */
+    color: dodgerblue; /* White text */
+    margin: 1rem;
+    font-size: 1rem; /* Set a font size */
+}
+
+.search__add:hover {
+    border: none;
+    background: dodgerblue;
+    color: white;
+    transition: background 0.6s ease, color 0.6s ease;
+}
+
