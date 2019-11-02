@@ -21,8 +21,10 @@ connection.once('open', ()=> {
 })
 
 const usersRouter = require('./routes/users');
+const drugsRouter = require('./routes/drugs')
 
 app.use('/users', usersRouter);
+//app.use('/drugs', drugsRouter);
 
 // start the server
 app.listen(port, () => {
