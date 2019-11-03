@@ -7,9 +7,9 @@ export default class Navbar extends Component {
 	render() {
 		return (
 			<nav className="navbar navbar-light bg-light navbar-expand-lg" id="navbar">
-				
+				<Link to="/">
 					<ChangeLogo />
-				
+				</Link>
 				<div class="navig">
 					<ul className="navbar-nav mr-auto" id="navbar2">
 						<li className="nav-item mr-2">
