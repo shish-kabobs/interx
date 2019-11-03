@@ -108,9 +108,9 @@ export default class CreateUser extends Component {
 						</button>
 					</form>
 				</div>
-				<div className="picture">
-					<p>picture</p>
-				</div>
+				<figure className="picture">
+                    <img src={pills} alt='scattered pills' />
+                </figure>
 			</div>
 		);
 	}
