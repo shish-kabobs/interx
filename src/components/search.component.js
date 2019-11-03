@@ -10,18 +10,18 @@ export default class Search extends Component {
 			<div>
 				<form action="">
 					<div className="form-group search">
-						<label className="search__bar" for="Search1">Search</label>
+						<label className="search__title" for="Search1">Search</label>
 						<div>
 							<input
 							type="text"
-							class="form-control"
+							class="form-control search__bar"
 							placeholder="Search a drug"
 							style={{ width: '25em' }}
 							required
 							></input>
 							<input
 							type="text"
-							class="form-control"
+							class="form-control search__bar"
 							placeholder="Search a drug"
 							style={{ width: '25em' }}
 							required

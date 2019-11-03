@@ -1,15 +1,21 @@
 .search {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
     vertical-align: top;
 }
 
-.search__bar {
+.search__title {
     font-size: 3rem;
     font-weight: bold;
     padding: 1rem;
+    padding-bottom: 0;
+}
+
+.search__bar {
+    margin: 0.8rem 0;
 }
 
 .search__add {
