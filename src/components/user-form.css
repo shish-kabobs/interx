@@ -3,7 +3,13 @@
     float: left;
 }
 
-.picture{
+figure.picture{
+    max-width: 300px;
+    width: 50%;
     float: right;
-    margin: 30px;
+    padding: 0;
+    margin: 0;
+}
+figure.picture img {
+    max-width: 100%;
 }

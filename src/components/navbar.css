@@ -1,6 +1,11 @@
-.logo{
-    float: left;
-    width: 80%;
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#navbar2 {
+    display: flex;
+    flex-direction: row;
 }
 button{
     float: right;

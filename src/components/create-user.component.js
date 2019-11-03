@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './user-form.css';
+import pills from '../images/pills.PNG';
 
 export default class CreateUser extends Component {
 	constructor(props) {
@@ -107,9 +108,9 @@ export default class CreateUser extends Component {
 						</button>
 					</form>
 				</div>
-				<div className="picture">
-					<p>picture</p>
-				</div>
+				<figure className="picture">
+                    <img src={pills} alt='scattered pills' />
+                </figure>
 			</div>
 		);
 	}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './user-form.css'
+import './user-form.css';
+import pillsclosed from '../images/pillsclosed.png';
 
 export default class Login extends Component {
     constructor(props) {
@@ -79,9 +80,10 @@ export default class Login extends Component {
                             <button type="submit" class="btn btn-outline-secondary" value="Create User">Submit</button>
                         </form>
                 </div>
-                <div className="picture">
-                    <p>picture</p>
-                </div>
+            
+                <figure className="picture">
+                    <img src={pillsclosed} alt='organized pills' />
+                </figure>
             </div>
         )
     }

@@ -1,0 +1,17 @@
+figure.logo{
+    max-width: 120px;
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+figure.logo img {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+/*@media screen and (min-width: 500px) {
+
+    figure.logo img {
+      width: 50%;
+    }
+  }*/
