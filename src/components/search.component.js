@@ -42,9 +42,9 @@ export default class Search extends Component {
 			drug2: ''
 		});
 
-		async function drugData() {
+		async function drugData(val) {
 			const response = await fetch(
-				"https://rxnav.nlm.nih.gov/REST/approximateTerm?term=" + drugs.drug1 + "&maxEntries=4",
+				"https://rxnav.nlm.nih.gov/REST/approximateTerm?term=" + val + "&maxEntries=4",
 				{
 					headers: {
 						'Content-Type': 'application/json',
@@ -52,12 +52,24 @@ export default class Search extends Component {
 					}
 				}
 			);
-			console.log(response);
 			const data = await response.json();
 			console.log(data);
+
+			const rxcui = data.approximateGroup.candidate[0].rxcui;
+			console.log(rxcui);
+
+			const response2 = await fetch("https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=" + rxcui, {
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json'
+				}
+			});
+			const data2 = await response2.json();
+			console.log(data2);
 		}
 
-		drugData();
+		drugData(drugs.drug1);
+		drugData(drugs.drug2);
 	}
 
 	render() {
