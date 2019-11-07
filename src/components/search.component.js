@@ -42,34 +42,109 @@ export default class Search extends Component {
 			drug2: ''
 		});
 
-		async function drugData(val) {
-			const response = await fetch(
-				"https://rxnav.nlm.nih.gov/REST/approximateTerm?term=" + val + "&maxEntries=4",
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						'Accept': 'application/json'
+		async function getIdList(val) {
+			try {
+				const response = await fetch(
+					'https://rxnav.nlm.nih.gov/REST/approximateTerm?term=' +
+						val +
+						'&maxEntries=4',
+					{
+						headers: {
+							'Access-Control-Allow-Origin': '*',
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'Access-Control-Allow-Headers': '*',
+							'Access-Control-Allow-Methods':
+								'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+						}
 					}
-				}
-			);
-			const data = await response.json();
-			console.log(data);
+				);
+				const data = await response.json();
 
-			const rxcui = data.approximateGroup.candidate[0].rxcui;
-			console.log(rxcui);
+				const rxcui = data.approximateGroup.candidate[0].rxcui;
+				// console.log(rxcui);
 
-			const response2 = await fetch("https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=" + rxcui, {
-				headers: {
-					'Content-Type': 'application/json',
-					'Accept': 'application/json'
-				}
-			});
-			const data2 = await response2.json();
-			console.log(data2);
+				const response2 = await fetch(
+					'https://rxnav.nlm.nih.gov/REST/interaction/interaction.json?rxcui=' +
+						rxcui,
+					{
+						headers: {
+							'Access-Control-Allow-Origin': '*',
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'Access-Control-Allow-Headers': '*',
+							'Access-Control-Allow-Methods':
+								'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+						}
+					}
+				);
+				const data2 = await response2.json();
+				// console.log(data2);
+
+				let idList = []; //[interacting rxcui, severity]
+				data2.interactionTypeGroup[0].interactionType[0].interactionPair.forEach(
+					num =>
+						idList.push([
+							num.interactionConcept[1].minConceptItem.rxcui,
+							num.severity
+						])
+				); // [num.interactionConcept[1].minConceptItem.rxcui, num.severity]
+
+				// console.log(idList);
+				return idList;
+			} catch (error) {
+				console.error(error);
+			}
 		}
 
-		drugData(drugs.drug1);
-		drugData(drugs.drug2);
+		async function getId(val) {
+			try {
+				const response = await fetch(
+					'https://rxnav.nlm.nih.gov/REST/approximateTerm?term=' +
+						val +
+						'&maxEntries=4',
+					{
+						headers: {
+							'Access-Control-Allow-Origin': '*',
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'Access-Control-Allow-Headers': '*',
+							'Access-Control-Allow-Methods':
+								'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+						}
+					}
+				);
+				const data = await response.json();
+
+				if (data) {
+					const id = data.approximateGroup.candidate[0].rxcui;
+					// console.log(id);
+					return id;
+				}
+			} catch (error) {
+				console.error(error);
+			}
+		}
+
+		Promise.all([getId(drugs.drug2), getIdList(drugs.drug1)]).then(
+			responses => {
+				if (responses[0] && responses[1]) {
+					const interaction = responses[1].filter(
+						drug => parseInt(drug[0]) === parseInt(responses[0])
+					);
+					console.log(interaction.length > 0);
+
+					if (interaction.length > 0) {
+						console.log(interaction);
+						const interactionInfo = {
+							rxcui: parseInt(interaction[0][0]),
+							severity: interaction[0][1]
+						};
+						console.log(interactionInfo);
+					}
+				}
+			}
+		);
 	}
 
 	render() {
@@ -77,13 +152,13 @@ export default class Search extends Component {
 			<div>
 				<form onSubmit={this.onSubmit}>
 					<div className="form-group search">
-						<label className="search__title" for="Search1">
+						<label className="search__title" htmlFor="Search1">
 							Search
 						</label>
 						<div>
 							<input
 								type="text"
-								class="form-control search__bar"
+								className="form-control search__bar"
 								placeholder="Search a drug"
 								style={{ width: '25em' }}
 								value={this.state.drug1}
@@ -92,7 +167,7 @@ export default class Search extends Component {
 							></input>
 							<input
 								type="text"
-								class="form-control search__bar"
+								className="form-control search__bar"
 								placeholder="Search a drug"
 								style={{ width: '25em' }}
 								value={this.state.drug2}
@@ -102,7 +177,7 @@ export default class Search extends Component {
 						</div>
 						<div id="new-searches"></div>
 
-						<button type="submit" class="btn btn-outline-primary">
+						<button type="submit" className="btn btn-outline-primary">
 							Submit
 						</button>
 					</div>
