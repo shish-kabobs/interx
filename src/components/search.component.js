@@ -35,8 +35,6 @@ export default class Search extends Component {
 			drug2: this.state.drug2
 		};
 
-		console.log(drugs);
-
 		this.setState({
 			drug1: '',
 			drug2: ''
@@ -132,16 +130,20 @@ export default class Search extends Component {
 					const interaction = responses[1].filter(
 						drug => parseInt(drug[0]) === parseInt(responses[0])
 					);
-					console.log(interaction.length > 0);
+					// console.log(interaction.length > 0);
+
+					const interactionInfo = {
+						drug1: drugs.drug1,
+						drug2: drugs.drug2
+					};
 
 					if (interaction.length > 0) {
-						console.log(interaction);
-						const interactionInfo = {
-							rxcui: parseInt(interaction[0][0]),
-							severity: interaction[0][1]
-						};
-						console.log(interactionInfo);
+						// console.log(interaction);
+						interactionInfo.severity = interaction[0][1];
+					} else {
+						interactionInfo.severity = false;
 					}
+					this.props.searchInteraction(interactionInfo);
 				}
 			}
 		);
